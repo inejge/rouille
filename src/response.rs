@@ -16,8 +16,8 @@ use std::fmt;
 use serde;
 use serde_json;
 use percent_encoding;
-use Request;
-use Upgrade;
+use crate::Request;
+use crate::Upgrade;
 
 /// Contains a prototype of a response.
 ///
@@ -79,6 +79,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::text("hello world");
     /// assert!(response.is_success());
@@ -93,6 +94,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::empty_400();
     /// assert!(response.is_error());
@@ -111,6 +113,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::redirect_301("/foo");
     /// ```
@@ -135,6 +138,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::redirect_302("/bar");
     /// ```
@@ -164,6 +168,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let user_id = 5;
     /// let response = Response::redirect_303(format!("/users/{}", user_id));
@@ -194,6 +199,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::redirect_307("/foo");
     /// ```
@@ -223,6 +229,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::redirect_302("/bar");
     /// ```
@@ -243,6 +250,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::from_data("application/octet-stream", vec![1, 2, 3, 4]);
     /// ```
@@ -264,6 +272,7 @@ impl Response {
     /// # Example
     ///
     /// ```no_run
+    /// # use rouille_maint_in as rouille;
     /// use std::fs::File;
     /// use rouille::Response;
     ///
@@ -287,6 +296,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::html("<p>hello <strong>world</strong></p>");
     /// ```
@@ -305,6 +315,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::svg("<svg xmlns='http://www.w3.org/2000/svg'/>");
     /// ```
@@ -323,6 +334,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::text("hello world");
     /// ```
@@ -343,7 +355,7 @@ impl Response {
     /// ```
     /// extern crate serde;
     /// #[macro_use] extern crate serde_derive;
-    /// #[macro_use] extern crate rouille;
+    /// #[macro_use] extern crate rouille_maint_in as rouille;
     /// use rouille::Response;
     /// # fn main() {
     ///
@@ -375,6 +387,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::basic_http_auth_login_required("realm");
     /// ```
@@ -394,6 +407,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::empty_204();
     /// ```
@@ -412,6 +426,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::empty_400();
     /// ```
@@ -430,6 +445,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::empty_404();
     /// ```
@@ -448,6 +464,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::empty_406();
     /// ```
@@ -466,6 +483,7 @@ impl Response {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Response;
     /// let response = Response::text("hello world").with_status_code(500);
     /// ```
@@ -544,6 +562,7 @@ impl Response {
     /// # Example
     ///
     /// ```rust
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Request;
     /// use rouille::Response;
     ///
@@ -599,6 +618,7 @@ impl Response {
     /// # Example
     ///
     /// ```rust
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Request;
     /// use rouille::Response;
     ///
@@ -680,6 +700,7 @@ impl Response {
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::ResponseBody;
 /// let body = ResponseBody::from_string("hello world");
 /// ```
@@ -694,6 +715,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::ResponseBody;
     /// let body = ResponseBody::empty();
     /// ```
@@ -713,6 +735,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```no_run
+    /// # use rouille_maint_in as rouille;
     /// use std::io;
     /// use std::io::Read;
     /// use rouille::ResponseBody;
@@ -732,6 +755,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::ResponseBody;
     /// let body = ResponseBody::from_data(vec![12u8, 97, 34]);
     /// ```
@@ -751,6 +775,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```no_run
+    /// # use rouille_maint_in as rouille;
     /// use std::fs::File;
     /// use rouille::ResponseBody;
     ///
@@ -772,6 +797,7 @@ impl ResponseBody {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::ResponseBody;
     /// let body = ResponseBody::from_string("hello world");
     /// ```
@@ -792,7 +818,7 @@ impl ResponseBody {
 
 #[cfg(test)]
 mod tests {
-    use Response;
+    use crate::Response;
 
     #[test]
     fn unique_header_adds() {

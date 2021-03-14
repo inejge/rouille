@@ -1,14 +1,15 @@
 [package]
-name = "rouille"
-version = "3.0.0"
+name = "rouille-maint-in"
+version = "3.0.1"
 authors = ["Pierre Krieger <pierre.krieger1708@gmail.com>"]
 license = "MIT/Apache-2.0"
-repository = "https://github.com/tomaka/rouille"
-documentation = "http://docs.rs/rouille"
+repository = "https://github.com/inejge/rouille-maint-in"
+documentation = "http://docs.rs/rouille-maint-in"
 description = "High-level idiomatic web framework."
 readme = "README.md"
 keywords = ["web", "framework", "http", "rest"]
 categories = ["web-programming::http-server", "web-programming::websocket"]
+edition = "2018"
 
 [features]
 default = ["gzip", "brotli"]

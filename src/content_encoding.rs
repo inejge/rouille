@@ -8,8 +8,8 @@
 // according to those terms.
 
 use std::str;
-use Request;
-use Response;
+use crate::Request;
+use crate::Response;
 
 /// Applies content encoding to the response.
 ///
@@ -27,6 +27,7 @@ use Response;
 /// # Example
 ///
 /// ```rust
+/// # use rouille_maint_in as rouille;
 /// use rouille::content_encoding;
 /// use rouille::Request;
 /// use rouille::Response;
@@ -94,6 +95,7 @@ fn response_is_text(response: &Response) -> bool {
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::{Request, Response};
 /// use rouille::content_encoding;
 ///
@@ -143,7 +145,7 @@ impl<'a> Iterator for AcceptedContentEncodingsIter<'a> {
 
 #[cfg(feature = "gzip")]
 fn gzip(e: &str, response: &mut Option<Response>) -> bool {
-    use ResponseBody;
+    use crate::ResponseBody;
     use std::mem;
     use std::io;
     use deflate::deflate_bytes_gzip;
@@ -174,7 +176,7 @@ fn gzip(e: &str, response: &mut Option<Response>) -> bool {
 
 #[cfg(feature = "brotli")]
 fn brotli(e: &str, response: &mut Option<Response>) -> bool {
-    use ResponseBody;
+    use crate::ResponseBody;
     use std::mem;
     use brotli2::read::BrotliEncoder;
 
@@ -198,8 +200,8 @@ fn brotli(e: &str, response: &mut Option<Response>) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use Request;
-    use content_encoding;
+    use crate::Request;
+    use crate::content_encoding;
 
     #[test]
     fn no_req_encodings() {

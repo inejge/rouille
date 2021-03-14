@@ -8,7 +8,7 @@
 // according to those terms.
 
 #[macro_use]
-extern crate rouille;
+extern crate rouille_maint_in as rouille;
 
 use std::thread;
 

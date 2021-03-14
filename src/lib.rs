@@ -12,6 +12,7 @@
 //! Listening to a port is done by calling the [`start_server`](fn.start_server.html) function:
 //!
 //! ```no_run
+//! # use rouille_maint_in as rouille;
 //! use rouille::Request;
 //! use rouille::Response;
 //!
@@ -80,7 +81,7 @@ pub const DEFAULT_ENCODE_SET: &percent_encoding::AsciiSet = &percent_encoding::C
 
 pub use assets::extension_to_mime;
 pub use assets::match_assets;
-pub use log::{log, log_custom};
+pub use crate::log::{log, log_custom};
 pub use response::{Response, ResponseBody};
 pub use tiny_http::ReadWrite;
 
@@ -135,7 +136,7 @@ macro_rules! try_or_404 {
 /// # Example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
 /// # fn main() {
 /// use rouille::Request;
 /// use rouille::Response;
@@ -175,7 +176,8 @@ macro_rules! assert_or_400 {
 /// The handler must also be thread-safe (`Send` and `Sync`).
 /// For example this handler isn't thread-safe:
 ///
-/// ```should_fail
+/// ```compile_fail
+/// # extern crate rouille_maint_in as rouille;
 /// let mut requests_counter = 0;
 ///
 /// rouille::start_server("localhost:80", move |request| {
@@ -192,6 +194,7 @@ macro_rules! assert_or_400 {
 /// Instead you must use a `Mutex`:
 ///
 /// ```no_run
+/// # use rouille_maint_in as rouille;
 /// use std::sync::Mutex;
 /// let requests_counter = Mutex::new(0);
 ///
@@ -272,6 +275,7 @@ impl Executor {
 /// # Example
 ///
 /// ```no_run
+/// # use rouille_maint_in as rouille;
 /// use rouille::Server;
 /// use rouille::Response;
 ///
@@ -298,7 +302,7 @@ impl<F> Server<F> where F: Send + Sync + 'static + Fn(&Request) -> Response {
     pub fn new<A>(addr: A, handler: F) -> Result<Server<F>, Box<dyn Error + Send + Sync>>
         where A: ToSocketAddrs
     {
-        let server = try!(tiny_http::Server::http(addr));
+        let server = tiny_http::Server::http(addr)?;
         Ok(Server {
             server,
             executor: Executor::Threaded,
@@ -323,7 +327,7 @@ impl<F> Server<F> where F: Send + Sync + 'static + Fn(&Request) -> Response {
             certificate,
             private_key,
         };
-        let server = try!(tiny_http::Server::https(addr, ssl_config));
+        let server = tiny_http::Server::https(addr, ssl_config)?;
         Ok(Server {
             server,
             executor: Executor::Threaded,
@@ -374,6 +378,7 @@ impl<F> Server<F> where F: Send + Sync + 'static + Fn(&Request) -> Response {
     /// stopping. This delay may be shortened in future.
     ///
     /// ```no_run
+    /// # use rouille_maint_in as rouille;
     /// use std::thread;
     /// use std::time::Duration;
     /// use rouille::Server;
@@ -417,6 +422,7 @@ impl<F> Server<F> where F: Send + Sync + 'static + Fn(&Request) -> Response {
     /// # Example
     ///
     /// ```no_run
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Server;
     /// use rouille::Response;
     ///
@@ -645,6 +651,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// # use rouille::Request;
     /// # use rouille::Response;
     /// fn handle(request: &Request) -> Response {
@@ -678,6 +685,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::{Request, Response};
     ///
     /// fn handle(request: &Request) -> Response {
@@ -708,6 +716,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Request;
     ///
     /// let request = Request::fake_http("GET", "/hello%20world?foo=bar", vec![], vec![]);
@@ -745,6 +754,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::Request;
     ///
     /// let request = Request::fake_http("GET", "/hello%20world?foo=bar", vec![], vec![]);
@@ -803,6 +813,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::{Request, Response};
     ///
     /// # fn track_user(request: &Request) {}
@@ -831,6 +842,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use std::io::Read;
     /// use rouille::{Request, Response, ResponseBody};
     ///
@@ -860,6 +872,7 @@ impl Request {
     /// # Example
     ///
     /// ```
+    /// # use rouille_maint_in as rouille;
     /// use rouille::{Request, Response};
     ///
     /// fn handle(request: &Request) -> Response {
@@ -912,7 +925,7 @@ impl<'a> Read for RequestBody<'a> {
 
 #[cfg(test)]
 mod tests {
-    use Request;
+    use crate::Request;
 
     #[test]
     fn header() {

@@ -18,7 +18,7 @@
 //!   [the `plain_text_body` function](fn.plain_text_body.html).
 
 use std::str::Split;
-use Request;
+use crate::Request;
 
 /// Attempts to parse the list of cookies from the request.
 ///
@@ -28,6 +28,7 @@ use Request;
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::Request;
 /// use rouille::input;
 ///
@@ -86,7 +87,7 @@ impl<'a> Iterator for CookiesIter<'a> {
 
 #[cfg(test)]
 mod test {
-    use Request;
+    use crate::Request;
     use super::cookies;
 
     #[test]

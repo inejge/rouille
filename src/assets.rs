@@ -13,8 +13,8 @@ use std::path::Path;
 use filetime;
 use time;
 
-use Request;
-use Response;
+use crate::Request;
+use crate::Response;
 
 /// Searches inside `path` for a file that matches the given request. If a file is found,
 /// returns a `Response` that would serve this file if returned. If no file is found, a 404
@@ -31,6 +31,7 @@ use Response;
 /// of the `Cargo.toml`) if it exists.
 ///
 /// ```no_run
+/// # use rouille_maint_in as rouille;
 /// rouille::start_server("localhost:8000", move |request| {
 ///     let response = rouille::match_assets(&request, "public");
 ///     if response.is_success() {
@@ -64,6 +65,7 @@ use Response;
 /// the `remove_prefix` method on `Request`.
 ///
 /// ```no_run
+/// # use rouille_maint_in as rouille;
 /// rouille::start_server("localhost:8000", move |request| {
 ///     if let Some(request) = request.remove_prefix("/static") {
 ///         return rouille::match_assets(&request, "public");

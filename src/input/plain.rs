@@ -11,7 +11,7 @@ use std::error;
 use std::fmt;
 use std::io::Error as IoError;
 use std::io::Read;
-use Request;
+use crate::Request;
 
 /// Error that can happen when parsing the request body as plain text.
 #[derive(Debug)]
@@ -85,7 +85,7 @@ impl fmt::Display for PlainTextError {
 /// # Example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
 /// # use rouille::{Request, Response};
 /// # fn main() {}
 /// fn route_handler(request: &Request) -> Response {
@@ -124,7 +124,7 @@ pub fn plain_text_body_with_limit(request: &Request, limit: usize)
     };
 
     let mut out = Vec::new();
-    try!(body.take(limit.saturating_add(1) as u64).read_to_end(&mut out));
+    body.take(limit.saturating_add(1) as u64).read_to_end(&mut out)?;
     if out.len() > limit {
         return Err(PlainTextError::LimitExceeded);
     }
@@ -139,7 +139,7 @@ pub fn plain_text_body_with_limit(request: &Request, limit: usize)
 
 #[cfg(test)]
 mod test {
-    use Request;
+    use crate::Request;
     use super::plain_text_body;
     use super::plain_text_body_with_limit;
     use super::PlainTextError;

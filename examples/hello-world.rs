@@ -8,7 +8,7 @@
 // according to those terms.
 
 #[macro_use]
-extern crate rouille;
+extern crate rouille_maint_in as rouille;
 
 fn main() {
     println!("Now listening on localhost:8000");

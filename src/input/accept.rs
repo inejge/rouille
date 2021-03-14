@@ -28,7 +28,7 @@
 /// # Basic example
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
 /// use rouille::Request;
 /// use rouille::Response;
 ///
@@ -44,7 +44,7 @@
 /// # Example with a default handler
 ///
 /// ```
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
 /// use rouille::Request;
 /// use rouille::Response;
 ///
@@ -92,7 +92,7 @@ macro_rules! accept {
 
 #[cfg(test)]
 mod tests {
-    use Request;
+    use crate::Request;
 
     #[test]
     fn basic() {
@@ -156,7 +156,7 @@ mod tests {
         let request = Request::fake_http("GET", "/", vec![], vec![]);
 
         let result = accept!(&request,
-            "image/gif" => { 5 },
+            "image/gif" => 5,
             "text/plain" => 12,
             "text/html" => 28,
         );
@@ -171,7 +171,7 @@ mod tests {
         ], vec![]);
 
         let result = accept!(&request,
-            "image/gif" => { 5 },
+            "image/gif" => 5,
             "text/plain" => 12,
             "text/html" => 28,
             "*/*" => 37

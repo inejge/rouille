@@ -18,6 +18,7 @@
 //! Here is a basic example showing how to get a session ID.
 //!
 //! ```
+//! # use rouille_maint_in as rouille;
 //! use rouille::Request;
 //! use rouille::Response;
 //! use rouille::session;
@@ -40,9 +41,9 @@ use rand;
 use rand::Rng;
 use rand::distributions::Alphanumeric;
 
-use Request;
-use Response;
-use input;
+use crate::Request;
+use crate::Response;
+use crate::input;
 
 pub fn session<'r, F>(request: &'r Request, cookie_name: &str, timeout_s: u64, inner: F) -> Response
     where F: FnOnce(&Session<'r>) -> Response

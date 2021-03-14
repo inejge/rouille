@@ -47,7 +47,7 @@
 //! # Example
 //!
 //! ```
-//! # #[macro_use] extern crate rouille;
+//! # #[macro_use] extern crate rouille_maint_in as rouille;
 //! use std::sync::Mutex;
 //! use std::sync::mpsc::Receiver;
 //!
@@ -77,8 +77,8 @@ use std::sync::mpsc;
 use std::vec::IntoIter as VecIntoIter;
 use sha1::Sha1;
 
-use Request;
-use Response;
+use crate::Request;
+use crate::Response;
 
 mod low_level;
 mod websocket;
@@ -185,6 +185,7 @@ pub fn start<S>(request: &Request, subprotocol: Option<S>)
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::websocket;
 ///
 /// # let request: rouille::Request = return;

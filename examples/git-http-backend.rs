@@ -7,7 +7,7 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
-extern crate rouille;
+extern crate rouille_maint_in as rouille;
 
 use std::io;
 use std::env;

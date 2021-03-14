@@ -12,7 +12,7 @@
 /// # Example
 ///
 /// ```no_run
-/// # #[macro_use] extern crate rouille; fn main() {
+/// # #[macro_use] extern crate rouille_maint_in as rouille; fn main() {
 /// # let request: rouille::Request = unsafe { std::mem::uninitialized() };
 /// let _result = router!(request,
 ///     // first route
@@ -356,7 +356,7 @@ macro_rules! router {
 
 #[cfg(test)]
 mod tests {
-    use Request;
+    use crate::Request;
 
     // -- old-style tests --
     #[test]
@@ -425,7 +425,7 @@ mod tests {
         let request = Request::fake_http("GET", "/math/3.2/plus/4", vec![], vec![]);
         let resp = router!(request,
             (GET) ["/hello"] => { 1. },
-            (GET) ["/math/{a}/plus/{b}", a: u32 , b: u32] => { 7. },
+            (GET) ["/math/{_a}/plus/{_b}", _a: u32 , _b: u32] => { 7. },
             (GET) ["/math/{a}/plus/{b}", a: f32 , b: u32] => { a + (b as f32) },
             _ => 0.
         );
@@ -547,13 +547,13 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected="Url parameter identity, `id`, does not have a matching `{id}` segment in url: \"/hello/james\"")]
+    #[should_panic(expected="Url parameter identity, `_id`, does not have a matching `{_id}` segment in url: \"/hello/james\"")]
     fn identity_not_present_in_url_string() {
         let request = Request::fake_http("GET", "/hello/james", vec![], vec![]);
 
         assert_eq!(1, router!(request,
             (GET) ["/hello/"] => { 0 },
-            (GET) ["/hello/{name}", name: String, id: u32] => { 1 }, // this should fail
+            (GET) ["/hello/{_name}", _name: String, _id: u32] => { 1 }, // this should fail
             _ => 0
         ));
     }

@@ -17,7 +17,7 @@
 //! ```
 //! # extern crate serde;
 //! # #[macro_use] extern crate serde_derive;
-//! # #[macro_use] extern crate rouille;
+//! # #[macro_use] extern crate rouille_maint_in as rouille;
 //! # use rouille::{Request, Response};
 //! # fn main() {}
 //!
@@ -39,7 +39,7 @@ use std::fmt;
 use std::io::Error as IoError;
 use serde;
 use serde_json;
-use Request;
+use crate::Request;
 
 /// Error that can happen when parsing the JSON input.
 #[derive(Debug)]
@@ -111,7 +111,7 @@ impl fmt::Display for JsonError {
 /// ```
 /// # extern crate serde;
 /// # #[macro_use] extern crate serde_derive;
-/// # #[macro_use] extern crate rouille;
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
 /// # use rouille::{Request, Response};
 /// fn main() {}
 ///

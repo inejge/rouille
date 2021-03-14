@@ -21,6 +21,7 @@ use std::str::Split;
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::input::priority_header_preferred;
 ///
 /// let header = "text/plain; q=1.2, image/png; q=2.0";
@@ -86,6 +87,7 @@ pub fn priority_header_preferred<'a, I>(input: &'a str, elements: I) -> Option<u
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use rouille::input::parse_priority_header;
 ///
 /// let mut iter = parse_priority_header("text/plain, image/png; q=1.5");

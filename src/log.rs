@@ -14,8 +14,8 @@ use std::time::Instant;
 
 use chrono;
 
-use Request;
-use Response;
+use crate::Request;
+use crate::Response;
 
 /// Adds a log entry to the given writer for each request.
 ///
@@ -29,6 +29,7 @@ use Response;
 /// # Example
 ///
 /// ```
+/// # use rouille_maint_in as rouille;
 /// use std::io;
 /// use rouille::{Request, Response};
 ///
@@ -79,7 +80,7 @@ pub fn log<W, F>(rq: &Request, mut output: W, f: F) -> Response
 /// ```
 /// #[macro_use] extern crate log;
 /// extern crate chrono;
-/// # extern crate rouille;
+/// # extern crate rouille_maint_in as rouille;
 /// use rouille::{Request, Response};
 ///
 ///
