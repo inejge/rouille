@@ -90,7 +90,7 @@ fn main() {
 fn handle_route(request: &Request, session_data: &mut Option<SessionData>) -> Response {
     // First we handle the routes that are always accessible and always the same, no matter whether
     // the user is logged in or not.
-    router!(request,
+    let response = router!(request,
         (POST) (/login) => {
             // This is the route that is called when the user wants to log in.
 
@@ -120,12 +120,12 @@ fn handle_route(request: &Request, session_data: &mut Option<SessionData>) -> Re
                 // including an attempt at XSS. Storing in memory what the user gave us is not
                 // wrong, but we have to take care not to interpret it as HTML data for example.
                 *session_data = Some(SessionData { login: data.login });
-                return Response::redirect_303("/");
+                Some(Response::redirect_303("/"))
 
             } else {
                 // We return a dummy response to indicate that the login failed. In a real
                 // application you should probably use some sort of HTML templating instead.
-                return Response::html("Wrong login/password");
+                Some(Response::html("Wrong login/password"))
             }
         },
 
@@ -136,12 +136,15 @@ fn handle_route(request: &Request, session_data: &mut Option<SessionData>) -> Re
 
             // We return a dummy response to indicate what happened. In a real application you
             // should probably use some sort of HTML templating instead.
-            return Response::html(r#"Logout successful.
-                                     <a href="/">Click here to go to the home</a>"#);
+            Some(Response::html(r#"Logout successful.
+                                   <a href="/">Click here to go to the home</a>"#))
         },
 
-        _ => ()
+        _ => None
     );
+    if let Some(response) = response {
+        return response;
+    }
 
     // We that we handled all the routes that are accessible in all circumstances, we check
     // that the user is logged in before proceeding.

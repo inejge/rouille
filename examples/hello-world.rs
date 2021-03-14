@@ -49,7 +49,7 @@ fn main() {
                 // This block panics. Fortunately rouille will automatically catch the panic and
                 // send back a 500 error message to the client. This prevents the server from
                 // closing unexpectedly.
-                panic!("Oops!")
+                response_panic!("Oops!")
             },
 
             (GET) (/{id: u32}) => {

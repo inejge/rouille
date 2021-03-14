@@ -161,6 +161,33 @@ macro_rules! assert_or_400 {
     );
 }
 
+/// Calls the [panic!](std::panic!) macro from the standard library wrapped in a
+/// [Response](crate::Response)-typed expression, to avoid the compiler complaining about
+/// unreachable paths in certain styles of `router!` blocks. The macro supports exactly the
+/// same types of arguments as the one in `std`.
+///
+/// # Example
+///
+/// ```should_panic
+/// # #[macro_use] extern crate rouille_maint_in as rouille;
+/// # fn main() {
+/// # use std::net::SocketAddr;
+/// # let request = rouille::Request::fake_http_from("127.0.0.1:60400".parse().expect("socket"), "GET", "/panic", vec![], vec![]);
+/// router!(request,
+///     (GET) (/panic) => {
+///         response_panic!("Oops!");
+///     },
+///     _ => (),
+/// )
+/// # }
+/// ```
+#[macro_export]
+macro_rules! response_panic {
+    () => { $crate::Response::text(if false { "" } else { ::std::panic!(); }) };
+    ($msg:expr $(,)?) => { $crate::Response::text(if false { "" } else { ::std::panic!($msg); }) };
+    ($fmt:expr, $($arg:tt)+) => { $crate::Response::text(if false { "" } else { ::std::panic!($fmt, $($arg)+); }) };
+}
+
 /// Starts a server and uses the given requests handler.
 ///
 /// The request handler takes a `&Request` and must return a `Response` to send to the user.
