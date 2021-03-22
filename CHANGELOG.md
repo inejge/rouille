@@ -1,5 +1,14 @@
 # Changelog
 
+## Version 3.0.1 (2021-03-22)
+
+- Crate name change to `rouille-maint-in` for the maintenance release by another
+  author (@inejge)
+- Code ported to 2018 edition, all tests pass, no warnings (regular rustc, Clippy
+  can be done later)
+- Several dependencies upgraded, most remaining duplicates are `rand` and related
+  crates
+
 ## Version [Unreleased]
 - Bump minimum supported Rust version to 1.34.2
 - embedded, exposed `url` version increased to 2.0
