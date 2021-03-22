@@ -1,5 +1,11 @@
 # Rouille, a Rust web micro-framework
 
+> __NOTE__
+>
+> This is a maintenance release of the library, with some upgraded dependencies and the minimally
+> modernized codebase to make it work with the 2018 edition of Rust. See [MAINT](MAINT.md) for
+> more information.
+
 Rouille is a micro-web-framework library. It creates a listening socket and parses incoming HTTP
 requests from clients, then gives you the hand to process the request.
 
@@ -11,9 +17,9 @@ by rouille. More general concepts (like database handling or templating) are not
 as they are considered orthogonal to the micro web framework. However rouille's design makes it easy
 to use in conjunction with any third-party library without the need for any glue code.
 
-## [Documentation](https://docs.rs/rouille)
+## [Documentation](https://docs.rs/rouille-maint-in)
 
-[![](https://docs.rs/rouille/badge.svg)](https://docs.rs/rouille)
+[![](https://docs.rs/rouille-maint-in/badge.svg)](https://docs.rs/rouille-maint-in)
 
 ## Getting started
 
