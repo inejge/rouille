@@ -7,6 +7,18 @@
 // notice may not be copied, modified, or distributed except
 // according to those terms.
 
+//! > <hr>
+//! >
+//! > __NOTE__
+//! >
+//! > This is a maintenace release of rouille, not by its original author, and not endorsed or
+//! > supported by him. The aim of the release is to minimally update the code to the 2018 edition
+//! > of Rust, and upgrade several dependencies to avoid crate duplication. This crate should be
+//! > a drop-in replacement for `rouille-3.0.0`. To use it, update `Cargo.toml` to say:
+//! >
+//! > `rouille = { version = "3", package = "rouille-maint-in" }`
+//! > <hr>
+//!
 //! The rouille library is very easy to get started with.
 //!
 //! Listening to a port is done by calling the [`start_server`](fn.start_server.html) function:
